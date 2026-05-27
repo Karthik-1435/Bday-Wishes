@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Happy Birthday! | A Special Wish For You</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #fff0e7 0%, #ffe0d4 100%);
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Roboto', 'Helvetica Neue', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* floating confetti-like balloons (simple circles) */
+    .bg-bubble {
+      position: fixed;
+      background: radial-gradient(circle at 30% 30%, rgba(255,220,150,0.6), rgba(255,160,100,0.3));
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAround 18s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatAround {
+      0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-40px) translateX(25px) rotate(8deg);
+      }
+    }
+
+    /* main card */
+    .birthday-card {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 252, 245, 0.96);
+      backdrop-filter: blur(1px);
+      border-radius: 3rem;
+      box-shadow: 0 30px 45px -20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,215,185,0.8);
+      overflow: hidden;
+      z-index: 2;
+      transition: transform 0.3s ease;
+      animation: cardGlow 2s ease-out;
+    }
+
+    @keyframes cardGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.96);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 30px 45px -20px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* header with cake and confetti style */
+    .hero-birthday {
+      background: linear-gradient(135deg, #ffb347, #ff8c42);
+      padding: 2rem 1.5rem 1.8rem;
+      text-align: center;
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+
+    .cake-icon {
+      font-size: 4.5rem;
+      filter: drop-shadow(2px 6px 12px rgba(0,0,0,0.2));
+      animation: bounceCake 1.8s infinite ease;
+      display: inline-block;
+    }
+
+    @keyframes bounceCake {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-birthday h1 {
+      font-size: 2.8rem;
+      letter-spacing: -0.5px;
+      margin: 0.5rem 0 0.2rem;
+      font-weight: 800;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      word-break: break-word;
+    }
+
+    .hero-birthday p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    /* main content */
+    .wishes-content {
+      padding: 2rem 2rem 1.8rem;
+    }
+
+    .greeting-text {
+      background: #fff5ed;
+      padding: 1.4rem;
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      border-left: 6px solid #ff9f4a;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #4a2e1e;
+      box-shadow: 0 6px 12px -8px rgba(0,0,0,0.05);
+    }
+
+    .greeting-text p {
+      margin-bottom: 1rem;
+    }
+
+    .greeting-text .signature {
+      text-align: right;
+      font-style: italic;
+      font-weight: 500;
+      margin-top: 0.6rem;
+      color: #c26e2e;
+    }
+
+    /* birthday details & fun facts */
+    .birthday-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: space-between;
+    }
+
+    .detail-card {
+      background: #fef3e9;
+      flex: 1;
+      min-width: 120px;
+      padding: 0.9rem;
+      border-radius: 1.8rem;
+      text-align: center;
+      transition: 0.2s;
+      border: 1px solid #ffdec9;
+    }
+
+    .detail-card span {
+      font-size: 2rem;
+      display: block;
+    }
+
+    .detail-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+      color: #8b5a3a;
+      letter-spacing: 0.3px;
+    }
+
+    .detail-card p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #c2652b;
+      margin-top: 0.2rem;
+    }
+
+    /* wishes list (gift box style) */
+    .gift-box {
+      background: #fffaf5;
+      border-radius: 2rem;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0 1rem;
+      border: 1px dashed #ffbc7a;
+    }
+
+    .gift-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #a5511d;
+      margin-bottom: 1rem;
+    }
+
+    .wish-list {
+      list-style: none;
+    }
+
+    .wish-list li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.8rem;
+      position: relative;
+      font-size: 1rem;
+      color: #4b3621;
+    }
+
+    .wish-list li:before {
+      content: "🎂";
+      position: absolute;
+      left: -4px;
+      top: -1px;
+      font-size: 1.2rem;
+    }
+
+    /* interactive birthday button & surprise */
+    .surprise-area {
+      text-align: center;
+      margin: 2rem 0 1rem;
+    }
+
+    .celebrate-btn {
+      background: #ff914d;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0.8rem 2rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+    }
+
+    .celebrate-btn:hover {
+      background: #ff7a2f;
+      transform: scale(0.97);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .surprise-message {
+      background: #f7e3d4;
+      border-radius: 2rem;
+      padding: 1.2rem;
+      margin-top: 1rem;
+      display: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #b1531c;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* interactive name change / personalization */
+    .personalize {
+      background: #faeadf;
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      margin-top: 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .personalize label {
+      font-weight: 600;
+      color: #7b482b;
+      font-size: 0.9rem;
+    }
+
+    .name-input {
+      flex: 2;
+      padding: 0.6rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid #ffcb9a;
+      background: white;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .name-input:focus {
+      border-color: #ff914d;
+      box-shadow: 0 0 0 2px #ffe0c0;
+    }
+
+    .update-name-btn {
+      background: #cd7a42;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    /* footer */
+    .footer-note {
+      background: #fae1ce;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.85rem;
+      color: #7c553b;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 550px) {
+      .birthday-card {
+        border-radius: 2rem;
+      }
+      .hero-birthday h1 {
+        font-size: 2rem;
+      }
+      .wishes-content {
+        padding: 1.5rem;
+      }
+      .greeting-text {
+        font-size: 1rem;
+      }
+      .detail-card span {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- floating soft background particles (balloon style) -->
+<div id="bgDecor"></div>
+
+<main class="birthday-card">
+  <div class="hero-birthday">
+    <div class="cake-icon">🎂✨</div>
+    <h1 id="birthdayNameDisplay">Happy Birthday!</h1>
+    <p>Today is all about you &nbsp;🎈&nbsp; joy & cake</p>
+  </div>
+
+  <div class="wishes-content">
+    <div class="greeting-text">
+      <p id="greetingMessage">🎉 Wishing you a day as bright as your smile, as sweet as your favorite dessert, and filled with unforgettable moments. May this year bring you everything you've been dreaming of — laughter, adventure, and endless love.</p>
+      <p>✨ You make the world a little more beautiful just by being you. ✨</p>
+      <div class="signature">— With lots of love, from everyone who adores you 💖</div>
+    </div>
+
+    <!-- fun birthday facts / age counter (no actual age needed, just fun) -->
+    <div class="birthday-details">
+      <div class="detail-card">
+        <span>🎁</span>
+        <h4>today's gift</h4>
+        <p>happiness + cake</p>
+      </div>
+      <div class="detail-card">
+        <span>🕯️</span>
+        <h4>make a wish</h4>
+        <p>blow the candles</p>
+      </div>
+      <div class="detail-card">
+        <span>🎈</span>
+        <h4>vibe of the day</h4>
+        <p>celebration mode</p>
+      </div>
+    </div>
+
+    <!-- birthday wishes list (extra sweetness) -->
+    <div class="gift-box">
+      <h3>🎀 birthday blessings for you 🎀</h3>
+      <ul class="wish-list">
+        <li>May your heart be light and your coffee strong ☕</li>
+        <li>May you receive unexpected surprises & warmth 🤍</li>
+        <li>Cheers to another trip around the sun — keep shining 🌞</li>
+        <li>Here’s to more adventures, great books, and good company 📚</li>
+      </ul>
+    </div>
+
+    <!-- surprise button -->
+    <div class="surprise-area">
+      <button id="surpriseBtn" class="celebrate-btn">🎉 Click for a Surprise 🎉</button>
+      <div id="surpriseMessage" class="surprise-message">
+        🎵 *happy birthday to you!* 🎵 <br>
+        🧁 Sending you a big virtual cupcake and a thousand confetti kisses! 🧁 <br>
+        🎂 May your day be sprinkled with magic!
+      </div>
+    </div>
+
+    <!-- personalize: edit name to customize greeting -->
+    <div class="personalize">
+      <label>🎂 personalize wish :</label>
+      <input type="text" id="friendNameInput" class="name-input" placeholder="e.g., Sarah, Mom, Best Friend" value="Dear Friend">
+      <button id="updateNameBtn" class="update-name-btn">✨ Update ✨</button>
+    </div>
+    <p style="font-size: 0.75rem; margin-top: 0.5rem; color:#c07848; text-align:center;">⭐ change the name & the birthday greeting will be tailored just for them ⭐</p>
+  </div>
+
+  <div class="footer-note">
+    🎂 May every candle on your cake light up a new dream 🎂 <br>
+    🌟 Happy Birthday — you are truly a gift 🌟
+  </div>
+</main>
+
+<script>
+  (function() {
+    // background floating bubbles decoration (birthday atmosphere)
+    const bgContainer = document.getElementById('bgDecor');
+    function createBubbles() {
+      for (let i = 0; i < 28; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bg-bubble');
+        const size = Math.floor(Math.random() * 70) + 20; // 20px to 90px
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.bottom = Math.random() * -20 + '%';
+        bubble.style.animationDuration = 12 + Math.random() * 15 + 's';
+        bubble.style.animationDelay = Math.random() * 8 + 's';
+        bubble.style.opacity = 0.3 + Math.random() * 0.4;
+        bubble.style.backgroundColor = `hsl(${Math.random() * 30 + 20}, 80%, 70%)`; // golden/peach tones
+        bgContainer.appendChild(bubble);
+      }
+    }
+    createBubbles();
+
+    // references
+    const birthdayNameDisplay = document.getElementById('birthdayNameDisplay');
+    const greetingMsgParagraph = document.getElementById('greetingMessage');
+    const nameInput = document.getElementById('friendNameInput');
+    const updateBtn = document.getElementById('updateNameBtn');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const surpriseDiv = document.getElementById('surpriseMessage');
+
+    // default name (if any)
+    let currentName = "Dear Friend";
+
+    // helper to update all birthday-related text with dynamic name
+    function updateBirthdayWishes(userName) {
+      if (!userName || userName.trim() === "") {
+        userName = "Wonderful You";
+      }
+      currentName = userName.trim();
+      // update main heading
+      birthdayNameDisplay.innerHTML = `🎈 Happy Birthday, ${currentName}! 🎈`;
+      // update personalized greeting message
+      greetingMsgParagraph.innerHTML = `🎉 Wishing ${currentName} a day as bright as your smile, as sweet as your favorite dessert, and filled with unforgettable moments. May this year bring you everything you've been dreaming of — laughter, adventure, and endless love.`;
+      // also add a small extra note
+      // no need to overwrite entire block, keep the rest
+      const signatureDiv = document.querySelector('.greeting-text .signature');
+      if (signatureDiv) {
+        // keep signature as is, but we can adjust slightly - optional
+      }
+      // make subtle change to the wish list first item sometimes for flair - nice touch
+      const wishItems = document.querySelectorAll('.wish-list li');
+      if (wishItems.length >= 1 && currentName) {
+        // personalize first wish (keep cheerful)
+        if (!wishItems[0].innerHTML.includes(currentName)) {
+          // but don't spam, just set a little variation without losing meaning
+          wishItems[0].innerHTML = `🥳 ${currentName}, may your heart be light and your coffee strong ☕`;
+        }
+      }
+    }
+
+    // event for name update
+    updateBtn.addEventListener('click', () => {
+      let newName = nameInput.value.trim();
+      if (newName === "") {
+        newName = "amazing soul";
+        nameInput.value = newName;
+      }
+      updateBirthdayWishes(newName);
+      // show tiny fleeting feedback (subtle)
+      const originalBtnText = updateBtn.innerText;
+      updateBtn.innerText = "🎉 Updated! 🎉";
+      setTimeout(() => {
+        updateBtn.innerText = originalBtnText;
+      }, 1000);
+      // Also add extra surprise effect on name change: animate card
+      const card = document.querySelector('.birthday-card');
+      card.style.transform = 'scale(1.01)';
+      setTimeout(() => { card.style.transform = ''; }, 200);
+    });
+
+    // surprise button: toggle or display the hidden message with confetti-like effect + more emojis
+    surpriseBtn.addEventListener('click', () => {
+      // Show surprise panel, but if already visible, add extra fun message content
+      if (surpriseDiv.style.display === 'block') {
+        // add more dynamic content without removing existing
+        const currentText = surpriseDiv.innerHTML;
+        surpriseDiv.innerHTML = currentText + '<br> 🎊✨ POP! Another confetti blast! Wishing you endless happiness! ✨🎊';
+        surpriseDiv.style.animation = 'none';
+        setTimeout(() => { surpriseDiv.style.animation = 'fadeUp 0.4s ease'; }, 10);
+        // optional: remove extra after a while if too long? keep as celebration overflow
+        setTimeout(() => {
+          if (surpriseDiv.innerHTML.includes('Another confetti blast')) {
+            // reset original after 6 seconds to avoid huge duplication
+            surpriseDiv.innerHTML = `🎵 *happy birthday to you!* 🎵 <br> 🧁 Sending you a big virtual cupcake and a thousand confetti kisses! 🧁 <br> 🎂 May your day be sprinkled with magic!`;
+          }
+        }, 5000);
+      } else {
+        surpriseDiv.style.display = 'block';
+        // add extra dynamic balloon effect in background
+        createFloatingEmoji();
+      }
+      // scroll into view gently
+      surpriseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    function createFloatingEmoji() {
+      // add floating temporary emoji for extra fun
+      for (let i = 0; i < 12; i++) {
+        const emojiSpan = document.createElement('div');
+        emojiSpan.innerText = ['🎈', '🎂', '🎉', '✨', '🎁', '🕯️', '🌸', '🥳'][Math.floor(Math.random() * 8)];
+        emojiSpan.style.position = 'fixed';
+        emojiSpan.style.left = Math.random() * 90 + '%';
+        emojiSpan.style.bottom = '10%';
+        emojiSpan.style.fontSize = (Math.random() * 28 + 18) + 'px';
+        emojiSpan.style.pointerEvents = 'none';
+        emojiSpan.style.zIndex = '100';
+        emojiSpan.style.opacity = '0.9';
+        emojiSpan.style.transition = 'all 2s ease-out';
+        emojiSpan.style.animation = 'floatUp 1.8s forwards';
+        document.body.appendChild(emojiSpan);
+        setTimeout(() => {
+          emojiSpan.style.transform = `translateY(-400px) rotate(${Math.random() * 30 - 15}deg)`;
+          emojiSpan.style.opacity = '0';
+        }, 50);
+        setTimeout(() => {
+          emojiSpan.remove();
+        }, 2000);
+      }
+    }
+
+    // Add keyframe for floating emoji dynamically (if not exists)
+    if (!document.querySelector('#floatKeyframeStyle')) {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'floatKeyframeStyle';
+      styleSheet.innerText = `
+        @keyframes floatUp {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-500px) rotate(20deg);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(styleSheet);
+    }
+
+    // initial call: set default name based on placeholder / gentle start
+    updateBirthdayWishes("Dear Friend");
+    nameInput.value = "Dear Friend";
+
+    // Add a little extra: age slider? not needed but we add a subtle balloon effect on page load
+    window.addEventListener('load', () => {
+      // small random confetti burst simulation
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const fakeEmoji = document.createElement('div');
+          fakeEmoji.innerText = '🎉';
+          fakeEmoji.style.position = 'fixed';
+          fakeEmoji.style.left = Math.random() * 100 + '%';
+          fakeEmoji.style.top = '20%';
+          fakeEmoji.style.fontSize = '26px';
+          fakeEmoji.style.opacity = '0.7';
+          fakeEmoji.style.pointerEvents = 'none';
+          fakeEmoji.style.zIndex = '999';
+          fakeEmoji.style.transition = 'transform 1s ease-out, opacity 1s';
+          document.body.appendChild(fakeEmoji);
+          setTimeout(() => {
+            fakeEmoji.style.transform = 'translateY(300px) rotate(15deg)';
+            fakeEmoji.style.opacity = '0';
+          }, 20);
+          setTimeout(() => fakeEmoji.remove(), 1200);
+        }, i * 180);
+      }
+    });
+
+    // also make the surprise message initially hidden
+    surpriseDiv.style.display = 'none';
+  })();
+</script>
+</body>
+</html>
